@@ -46,6 +46,9 @@ module Datadog
 
           def render_template_with_datadog(*args)
             begin
+              # Set analytics sample rate
+              Contrib::Rails::Utils.set_analytics_sample_rate(active_datadog_span)
+
               # arguments based on render_template signature (stable since Rails 3.2)
               template = args[0]
               layout_name = args[1]
@@ -125,6 +128,9 @@ module Datadog
 
           def render_partial_with_datadog(*args)
             begin
+              # Set analytics sample rate
+              Contrib::Rails::Utils.set_analytics_sample_rate(active_datadog_span)
+
               template_name = Datadog::Contrib::Rails::Utils.normalize_template_name(@template.try('identifier'))
               if template_name
                 active_datadog_span.set_tag(
