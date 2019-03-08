@@ -31,6 +31,8 @@ module Datadog
           super
         end
 
+        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable Metrics/MethodLength
         def self.registered(app)
           ::Sinatra::Base.module_eval do
             def render(engine, data, *)
@@ -41,6 +43,12 @@ module Datadog
                   # If data is a string, it is a literal template and we don't
                   # want to record it.
                   span.set_tag(Ext::TAG_TEMPLATE_NAME, data) if data.is_a? Symbol
+
+                  # Set analytics sample rate
+                  if Contrib::Analytics.enabled?(Datadog.configuration[:sinatra][:analytics_enabled])
+                    Contrib::Analytics.set_sample_rate(span, Datadog.configuration[:sinatra][:analytics_sample_rate])
+                  end
+
                   output = super
                 end
               else
