@@ -66,6 +66,7 @@ RSpec.describe Datadog::Contrib::Shoryuken::Tracer do
     it_behaves_like 'analytics for integration' do
       include_context 'Shoryuken::Worker'
       let(:body) { {} }
+      let(:ignore_global_flag) { false }
       let(:analytics_enabled_var) { Datadog::Contrib::Shoryuken::Ext::ENV_ANALYTICS_ENALBED }
       let(:analytics_sample_rate_var) { Datadog::Contrib::Shoryuken::Ext::ENV_ANALYTICS_SAMPLE_RATE }
       before { call }

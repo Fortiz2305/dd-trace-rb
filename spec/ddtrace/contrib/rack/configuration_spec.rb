@@ -45,6 +45,7 @@ RSpec.describe 'Rack integration configuration' do
   it_behaves_like 'analytics for integration' do
     include_context 'an incoming HTTP request'
     before { is_expected.to be_ok }
+    let(:ignore_global_flag) { false }
     let(:analytics_enabled_var) { Datadog::Contrib::Rack::Ext::ENV_ANALYTICS_ENALBED }
     let(:analytics_sample_rate_var) { Datadog::Contrib::Rack::Ext::ENV_ANALYTICS_SAMPLE_RATE }
   end
