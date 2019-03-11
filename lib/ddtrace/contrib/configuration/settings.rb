@@ -1,11 +1,11 @@
-require 'ddtrace/contrib/configuration/options'
+require 'ddtrace/configuration/options'
 
 module Datadog
   module Contrib
     module Configuration
       # Common settings for all integrations
       class Settings
-        include Options
+        include Datadog::Configuration::Options
 
         option :service_name
         option :tracer, default: Datadog.tracer
